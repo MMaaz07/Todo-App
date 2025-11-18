@@ -8,9 +8,9 @@ from django.contrib.auth.models import User
 
 @login_required(login_url='login')
 def home(request):
-    tasks=Task.objects.filter(is_completed=False).order_by('updated_at')
+    tasks=Task.objects.filter(is_completed=False, user=request.user).order_by('updated_at')
 
-    completed_tasks=Task.objects.filter(is_completed=True)
+    completed_tasks=Task.objects.filter(is_completed=True, user=request.user)
     print(completed_tasks)
     context={
         'tasks':tasks,
